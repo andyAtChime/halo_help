@@ -17,6 +17,7 @@ function htest {
 function hnuke { halo disable -a; } # disable all services
 function hsta { halo status; } # show status of all services
 function hrc { hexec bin/rails console; } # rails console
+function hr { hexec bin/rails $@; } # rails console
 function hdiff { hexec cat $1 | diff --strip-trailing-cr $1 -; } # diff a file with its remote counterpart for sanity checking syncing
 
 # service-optional commands
