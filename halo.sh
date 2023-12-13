@@ -9,7 +9,7 @@ function hcopa { hexec bundle exec rubocop -a; } # run rubocop in a service and 
 function hcopacabana { hcopa && echo "The hottest spot north of Havana"; }
 function htest {
   if [ $(localdir) = 'decision-platform-client' ]; then # add your non-ruby tests like this
-    hexec jest $@
+    hexec yarn test $@
   else # extend more with `elif`
     halo test $(localdir) $@
   fi
