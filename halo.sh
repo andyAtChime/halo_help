@@ -4,6 +4,7 @@ alias h="halo"
 
 # service-fixed or service-agnostic commands
 function hexec { halo exec $(localdir) -- $@; } # execute a command in the current directory's service
+function hbundle { hexec bundle } # install gems in a service
 function hcop { hexec bundle exec rubocop; } # run rubocop in a service
 function hcopa { hexec bundle exec rubocop -a; } # run rubocop in a service and auto-correct
 function hcopacabana { hcopa && echo "The hottest spot north of Havana"; }
