@@ -22,6 +22,8 @@ function hstaw { halo status -w; } # show status of all services
 function hrc { hexec bin/rails console; } # rails console
 function hr { hexec bin/rails $@; } # rails console
 function hdiff { hexec cat $1 | diff --strip-trailing-cr $1 -; } # diff a file with its remote counterpart for sanity checking syncing
+function hmigrate { hexec bin/rails db:migrate; } # run migrations
+function hrollback { hexec bin/rails db:rollback; } # rollback migrations
 
 # service-optional commands
 function hlogs { halo logs ${1:-$(localdir)} -f; } # tail logs of a service
