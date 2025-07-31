@@ -9,11 +9,27 @@ function hcop { hexec bundle exec rubocop; } # run rubocop in a service
 function hcopa { hexec bundle exec rubocop -a ${1}; } # run rubocop in a service and auto-correct
 function hcopacabana { hcopa && echo "The hottest spot north of Havana"; }
 function htest {
+  # Process arguments to convert absolute paths to relative paths
+  local processed_args=()
+  local current_dir=$(pwd)
+  
+  for arg in "$@"; do
+    # Check if argument is an absolute path that starts with current directory
+    if [[ "$arg" == "$current_dir"/* ]]; then
+      # Strip the current directory path to make it relative
+      relative_path="${arg#$current_dir/}"
+      processed_args+=("$relative_path")
+    else
+      # Keep the argument as-is
+      processed_args+=("$arg")
+    fi
+  done
+  
   if [ $(localdir) = 'decision-platform-client' ]; then # add your non-ruby tests like this
-    yarn test $@
+    yarn test "${processed_args[@]}"
   else # extend more with `elif`
     echo $(localdir)
-    halo test $(localdir) $@
+    halo test $(localdir) "${processed_args[@]}"
   fi
 }
 function hnuke { halo disable -a; } # disable all services
